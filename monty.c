@@ -15,10 +15,13 @@ void push(int n, stack_t *s)
 {
 	stack_t *new = malloc(sizeof(s));
 
+	if (new == NULL)
+		return;
+	s -> next = new;
 	new -> prev = s;
 	new -> next = NULL;
 	new -> n = n;
-	s  = new;
+	s = new;
 }
 /**
  * main - executes monty
@@ -63,10 +66,25 @@ int main(int argc, char **argv)
 			if (strcmp(cmd[0], "push") == 0)
 			{
 				n = atoi(cmd[1]);
+				printf("n after atoi: %d\n", n);
 				push(n, my_stack);
+				printf("top: %d\n", my_stack -> n);
 			}
+			/*===pall===*/
 			else if (strcmp(cmd[0], "pall") == 0)
 				pall(my_stack);
+			/*====pint=====*/
+			else if (strcmp(cmd[0], "pint") == 0)
+			{
+				if (my_stack)
+				{
+					printf("%d\n", my_stack -> n);
+				}
+				else
+				{
+					fprintf(stderr, "L%d: can't pint, stack empty", line);
+				}
+			}
 			else
 			{
 				printf("opcode: %s\n", cmd[0]);
