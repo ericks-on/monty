@@ -11,7 +11,6 @@ void pall(stack_t *s)
 	stack_t *temp;
 
 	temp = s;
-	printf("%d\n", temp -> n);
 	while (temp -> prev != NULL)
 	{
 		printf("%d\n", temp -> n);

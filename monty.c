@@ -58,7 +58,6 @@ int main(int argc, char **argv)
 		}
 		while (fgets(buffer, MAX_LINE, pf) != NULL)
 		{
-			printf("Buffer: %s\n", buffer);
 			cmd = get_cmd(buffer);
 			/*=========COMMANDS======================*/
 			if (strcmp(cmd[0], "push") == 0)
