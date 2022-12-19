@@ -30,4 +30,5 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 char **get_cmd(char *buffer);
+char *_strdup(char *original);
 #endif

@@ -5,6 +5,22 @@
 #include <string.h>
 #define MAX_LINE 2048
 /**
+ * push - to push into stack
+ * @n:number to push
+ * @s: pointer to stack
+ *
+ * return:nothing
+ */
+void push(int n, stack_t *s)
+{
+	stack_t *new = malloc(sizeof(s));
+
+	new -> prev = s;
+	new -> next = NULL;
+	new -> n = n;
+	s  = new;
+}
+/**
  * main - executes monty
  * @argv: arguments vector
  * @argc: argument count
@@ -18,7 +34,15 @@ int main(int argc, char **argv)
 	char **cmd;
 	int cmd_i = 0;
 	int line = 1;
+	stack_t *my_stack;
+	int n;
 
+	my_stack = malloc(sizeof(stack_t));
+	if (my_stack == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	if (argc == 2)
 	{
 		pf = fopen(argv[1], "r");
@@ -42,12 +66,19 @@ int main(int argc, char **argv)
 				cmd_i++;
 			if (strcmp(cmd[0], "push") == 0)
 			{
-				if (cmd_i != 2 || !atoi(cmd[1]))
+				n = atoi(cmd[1]);
+				push(n, my_stack);
+			}
+			else if (strcmp(cmd[0], "pall") == 0)
+			{
+				stack_t *temp;
+
+				temp = (my_stack -> prev);
+				while (temp != NULL)
 				{
-					fprintf(stderr, "L%d: unknown instruction <opcode>\n", line);
-					exit(EXIT_FAILURE);
+					printf("%d\n", (my_stack -> n));
+					temp = temp -> prev;
 				}
-				printf("ready to push\n");
 			}
 			else
 			{

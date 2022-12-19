@@ -3,6 +3,33 @@
 #include <stdio.h>
 #include <string.h>
 /**
+ * _strdup - duplicates string
+ * @original - original string
+ *
+ * Return: pointer to duplicated string
+ */
+char *_strdup(char *original)
+{
+	char *dup;
+	int i = 0;
+	int len;
+
+	len = strlen(original);
+	dup = malloc(sizeof(char) * (len + 1));
+	if (dup == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+        }
+	while (original[i] != '\0')
+	{
+		dup[i] = original[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+/**
  * get_cmd - gets monty opcode
  * @buffer: where to search for the command
  *
@@ -12,8 +39,8 @@ char **get_cmd(char *buffer)
 {
 	int i = 0, j = 0, n = 0;
 	char *word = malloc(sizeof(char) * 15);
+	char **cmd = malloc(sizeof(&word) * 100);
 	char *temp_str;
-	char **cmd = malloc(sizeof(word) * 100);
 
 	if (word == NULL || cmd == NULL)
 	{
@@ -31,7 +58,7 @@ char **get_cmd(char *buffer)
 			{
 				j++;
 				word[j] = '\0';
-				temp_str = strdup(word);
+				temp_str = _strdup(word);
 				if (temp_str == NULL)
 					exit(EXIT_FAILURE);
 				cmd[n] = temp_str;
@@ -42,26 +69,19 @@ char **get_cmd(char *buffer)
 					fprintf(stderr, "Error: malloc failed\n");
 					exit(EXIT_FAILURE);
 				}
-				printf("word after free: %s\n", cmd[n]);
 				n++;
 				j = 0;
 			}
 			else
-			{
-				n++;
 				j++;
-			}
 			i++;
 		}
 	}
-	if (word[j] != '\0')
+	if (word[j - 1])
 	{
 		word[j] = '\0';
-		temp_str = strdup(word);
-		cmd[n] = temp_str;
+		cmd[n] = word;
 	}
-	printf("command: %s\n", cmd[0]);
-	free(word);
 	return (cmd);
 }
 
