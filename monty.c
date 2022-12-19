@@ -32,7 +32,6 @@ int main(int argc, char **argv)
 	FILE *pf;
 	char *buffer;
 	char **cmd;
-	int cmd_i = 0;
 	int line = 1;
 	stack_t *my_stack;
 	int n;
@@ -61,25 +60,14 @@ int main(int argc, char **argv)
 		{
 			printf("Buffer: %s\n", buffer);
 			cmd = get_cmd(buffer);
-			printf("first command: %s\n", cmd[0]);
-			while (cmd[cmd_i] != NULL)
-				cmd_i++;
+			/*=========COMMANDS======================*/
 			if (strcmp(cmd[0], "push") == 0)
 			{
 				n = atoi(cmd[1]);
 				push(n, my_stack);
 			}
 			else if (strcmp(cmd[0], "pall") == 0)
-			{
-				stack_t *temp;
-
-				temp = (my_stack -> prev);
-				while (temp != NULL)
-				{
-					printf("%d\n", (my_stack -> n));
-					temp = temp -> prev;
-				}
-			}
+				pall(my_stack);
 			else
 			{
 				printf("opcode: %s\n", cmd[0]);

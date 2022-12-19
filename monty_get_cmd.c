@@ -39,7 +39,7 @@ char **get_cmd(char *buffer)
 {
 	int i = 0, j = 0, n = 0;
 	char *word = malloc(sizeof(char) * 15);
-	char **cmd = malloc(sizeof(&word) * 100);
+	char **cmd = malloc(sizeof(word) * 100);
 	char *temp_str;
 
 	if (word == NULL || cmd == NULL)

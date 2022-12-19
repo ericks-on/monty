@@ -31,4 +31,6 @@ typedef struct instruction_s
 } instruction_t;
 char **get_cmd(char *buffer);
 char *_strdup(char *original);
+void pall(stack_t *s);
+void push(int n, stack_t *s);
 #endif
